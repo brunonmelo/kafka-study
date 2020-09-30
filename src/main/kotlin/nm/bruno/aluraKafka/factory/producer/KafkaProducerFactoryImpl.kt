@@ -8,10 +8,8 @@ import java.util.*
 class KafkaProducerFactoryImpl<T> : KafkaProducerFactory<T> {
 
     private val kafkaProducer by lazy { KafkaProducer<String, T>(properties()) }
-    private lateinit var topic: String
 
     override fun build(topic: String): KProducer<T> {
-        this.topic = topic
         return KProducerImpl(kafkaProducer, topic)
     }
 

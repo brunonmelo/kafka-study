@@ -1,0 +1,8 @@
+# kafka build
+/zk-single-kafka-single/
+
+# Idea files
+/.idea/
+
+# Java Target
+/target/

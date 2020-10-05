@@ -3,7 +3,7 @@ package nm.bruno.aluraKafka.service.consumer
 import nm.bruno.aluraKafka.factory.consumer.KafkaConsumerFactory.KConsumer
 import org.apache.kafka.clients.consumer.ConsumerRecords
 
-open class BaseConsumerServiceImpl(private var consumer: KConsumer<String>): BaseConsumerService {
+open class BaseConsumerServiceImpl(private val consumer: KConsumer<String>): BaseConsumerService {
 
     private var switch = false
 

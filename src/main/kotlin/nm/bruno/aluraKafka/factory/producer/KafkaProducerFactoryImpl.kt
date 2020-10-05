@@ -25,8 +25,8 @@ class KafkaProducerFactoryImpl<T> : KafkaProducerFactory<T> {
         private val kafkaProducer: KafkaProducer<String, T>,
         private val topic: String,
     ) : KProducer<T> {
-        override fun send(value: T, callback: (data: RecordMetadata?) -> Unit) {
-            val record = ProducerRecord<String, T>(topic, value)
+        override fun send(value: T, key: String?, callback: (data: RecordMetadata?) -> Unit) {
+            val record = ProducerRecord<String, T>(topic, key, value)
             kafkaProducer.send(record, callbackFunction(callback)).get()
         }
 

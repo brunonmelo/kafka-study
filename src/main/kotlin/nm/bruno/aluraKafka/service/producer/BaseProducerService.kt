@@ -4,5 +4,5 @@ import org.apache.kafka.clients.producer.RecordMetadata
 
 interface BaseProducerService {
 
-    fun sendMessage(message: String, callback: (RecordMetadata?) -> Unit)
+    fun sendMessage(message: String, key: String? = null, callback: (RecordMetadata?) -> Unit)
 }

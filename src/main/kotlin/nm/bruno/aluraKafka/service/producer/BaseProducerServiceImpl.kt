@@ -5,7 +5,7 @@ import org.apache.kafka.clients.producer.RecordMetadata
 
 open class BaseProducerServiceImpl(private val producer: KProducer<String>): BaseProducerService {
 
-    override fun sendMessage(message: String, callback: (RecordMetadata?) -> Unit) {
-        producer.send(message, callback)
+    override fun sendMessage(message: String, key: String?, callback: (RecordMetadata?) -> Unit) {
+        producer.send(message, key, callback)
     }
 }

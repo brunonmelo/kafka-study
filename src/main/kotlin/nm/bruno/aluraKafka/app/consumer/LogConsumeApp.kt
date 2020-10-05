@@ -7,5 +7,5 @@ import nm.bruno.aluraKafka.utils.defaultReceiveMessageCallback
 
 fun main() {
     val logService: LogService = LogServiceImpl(KafkaConsumerFactoryImpl())
-    logService.start { defaultReceiveMessageCallback(it) }
+    logService.start { defaultReceiveMessageCallback(it, 500) }
 }

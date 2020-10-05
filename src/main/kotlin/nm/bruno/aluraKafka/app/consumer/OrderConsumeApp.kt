@@ -7,5 +7,5 @@ import nm.bruno.aluraKafka.utils.defaultReceiveMessageCallback
 
 fun main() {
     val fraudDetectService: FraudDetectService = FraudDetectServiceImpl(KafkaConsumerFactoryImpl())
-    fraudDetectService.start { defaultReceiveMessageCallback(it) }
+    fraudDetectService.start { defaultReceiveMessageCallback(it, 5000) }
 }

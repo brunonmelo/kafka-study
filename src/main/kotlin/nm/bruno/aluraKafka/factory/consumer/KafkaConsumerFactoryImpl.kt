@@ -1,31 +1,36 @@
 package nm.bruno.aluraKafka.factory.consumer
 
-import com.fasterxml.jackson.databind.JsonDeserializer
 import nm.bruno.aluraKafka.factory.consumer.KafkaConsumerFactory.KConsumer
-import nm.bruno.aluraKafka.service.fraudDetect.FraudDetectService
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.consumer.ConsumerRecords
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.common.serialization.StringDeserializer
-import org.apache.kafka.common.serialization.StringSerializer
 import java.time.Duration
 import java.util.*
+import java.util.regex.Pattern
 
 class KafkaConsumerFactoryImpl<T> : KafkaConsumerFactory<T> {
 
-    private val consumer: KafkaConsumer<String, T> by lazy { KafkaConsumer(properties()) }
+    private lateinit var consumer: KafkaConsumer<String, T>
 
-    override fun build(topic: String): KConsumer<T> {
+    override fun <C> build(topic: String, clazz: Class<C>): KConsumer<T> {
+        consumer = KafkaConsumer(properties(clazz))
         consumer.subscribe(listOf(topic))
         return KConsumerImpl(consumer)
     }
 
-    private fun properties(): Properties {
+    override fun <C> build(pattern: Pattern, clazz: Class<C>): KConsumer<T> {
+        consumer = KafkaConsumer(properties(clazz))
+        consumer.subscribe(pattern)
+        return KConsumerImpl(consumer)
+    }
+
+    private fun <C> properties(clazz: Class<C>): Properties {
         return Properties().apply {
             setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092")
             setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer::class.java.name)
             setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer::class.java.name)
-            setProperty(ConsumerConfig.GROUP_ID_CONFIG, FraudDetectService::class.java.simpleName)
+            setProperty(ConsumerConfig.GROUP_ID_CONFIG, clazz.simpleName)
         }
     }
 

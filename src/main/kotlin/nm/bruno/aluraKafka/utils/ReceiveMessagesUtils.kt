@@ -12,11 +12,11 @@ fun defaultReceiveMessageCallback(records: ConsumerRecords<String, String>, slee
             println("Valor: ${it.value()}")
             println("offset: ${it.offset()}")
             println("Partition: ${it.partition()}")
-        }
 
-        sleep?.let {
-            Thread.sleep(it)
-            println("Finished processing")
+            sleep?.let { sleepTime ->
+                Thread.sleep(sleepTime)
+                println("Finished processing")
+            }
         }
     }
 }

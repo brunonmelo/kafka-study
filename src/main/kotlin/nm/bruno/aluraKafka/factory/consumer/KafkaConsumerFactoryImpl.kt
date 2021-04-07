@@ -31,6 +31,7 @@ class KafkaConsumerFactoryImpl<T> : KafkaConsumerFactory<T> {
             setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer::class.java.name)
             setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer::class.java.name)
             setProperty(ConsumerConfig.GROUP_ID_CONFIG, clazz.simpleName)
+            setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "1")
         }
     }
 

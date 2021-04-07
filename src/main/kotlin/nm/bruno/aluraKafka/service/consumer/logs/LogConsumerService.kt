@@ -2,4 +2,4 @@ package nm.bruno.aluraKafka.service.consumer.logs
 
 import nm.bruno.aluraKafka.service.consumer.BaseConsumerService
 
-interface LogService : BaseConsumerService
+interface LogConsumerService : BaseConsumerService

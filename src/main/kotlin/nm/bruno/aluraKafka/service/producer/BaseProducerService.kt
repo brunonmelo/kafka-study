@@ -2,7 +2,7 @@ package nm.bruno.aluraKafka.service.producer
 
 import org.apache.kafka.clients.producer.RecordMetadata
 
-interface BaseProducerService {
+interface BaseProducerService<T> {
 
-    fun sendMessage(message: String, key: String? = null, callback: (RecordMetadata?) -> Unit)
+    fun sendMessage(message: T, key: String? = null, callback: (RecordMetadata?) -> Unit)
 }

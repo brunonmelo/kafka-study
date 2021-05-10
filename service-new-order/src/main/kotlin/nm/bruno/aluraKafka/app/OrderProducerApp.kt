@@ -1,7 +1,7 @@
 package nm.bruno.aluraKafka.app
 
-import nm.bruno.aluraKafka.domain.events.Email
-import nm.bruno.aluraKafka.domain.events.Order
+import nm.bruno.aluraKafka.domain.Email
+import nm.bruno.aluraKafka.domain.Order
 import nm.bruno.aluraKafka.factory.producer.KafkaProducerFactoryImpl
 import nm.bruno.aluraKafka.service.producer.OrderService
 import nm.bruno.aluraKafka.service.producer.OrderServiceImpl
@@ -14,7 +14,7 @@ private val orderService: OrderService by lazy { OrderServiceImpl(KafkaProducerF
 private val sendEmailService: SendEmailService by lazy { SendEmailServiceImpl(KafkaProducerFactoryImpl()) }
 
 fun main() {
-    for (x in 0..2) {
+    for (x in 0..10) {
         val orderId = UUID.randomUUID().toString()
         val userId = UUID.randomUUID().toString()
         val value = (Math.random() * 5000 + 1).toBigDecimal()

@@ -11,12 +11,4 @@
 
     <artifactId>common-kafka</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>me.bruno</groupId>
-            <artifactId>mainModule</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
-
 </project>

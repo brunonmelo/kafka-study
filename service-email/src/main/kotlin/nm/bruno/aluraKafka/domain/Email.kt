@@ -1,4 +1,4 @@
-package nm.bruno.aluraKafka.domain.events
+package nm.bruno.aluraKafka.domain
 
 data class Email(
     val orderId: String,

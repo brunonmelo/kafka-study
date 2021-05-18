@@ -1,10 +1,12 @@
 package nm.bruno.aluraKafka.service.fraudCheck
 
 import nm.bruno.aluraKafka.domain.Order
+import nm.bruno.aluraKafka.service.producer.OrderService
+import nm.bruno.aluraKafka.utils.defaultSendMessageCallback
 import org.apache.kafka.clients.consumer.ConsumerRecords
 import java.math.BigDecimal
 
-class FraudServiceImpl : FraudService {
+class FraudServiceImpl(private val orderService: OrderService) : FraudService {
 
     override fun processFraudVerification(records: ConsumerRecords<String, Order>) {
         if (!records.isEmpty) {
@@ -21,8 +23,10 @@ class FraudServiceImpl : FraudService {
 
                 if (order.value >= BigDecimal("4500")) {
                     println("Status: Order é uma fraude")
+                    orderService.sendDeniedMessage(order) { record -> defaultSendMessageCallback(record) }
                 } else {
                     println("Status: Aprovado")
+                    orderService.sendApprovedMessage(order) { record -> defaultSendMessageCallback(record) }
                 }
                 println("Valor: $order")
 

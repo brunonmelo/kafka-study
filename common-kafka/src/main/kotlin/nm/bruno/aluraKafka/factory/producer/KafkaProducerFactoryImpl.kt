@@ -1,6 +1,5 @@
 package nm.bruno.aluraKafka.factory.producer
 
-import nm.bruno.aluraKafka.domain.Event
 import nm.bruno.aluraKafka.factory.producer.KafkaProducerFactory.KProducer
 import org.apache.kafka.clients.producer.*
 import org.apache.kafka.common.serialization.StringSerializer
@@ -8,7 +7,7 @@ import java.util.*
 
 class KafkaProducerFactoryImpl<T> : KafkaProducerFactory<T> {
 
-    private val kafkaProducer by lazy { KafkaProducer<String, Event<T>>(properties()) }
+    private val kafkaProducer by lazy { KafkaProducer<String, T>(properties()) }
 
     override fun build(topic: String): KProducer<T> {
         return KProducerImpl(
@@ -26,12 +25,11 @@ class KafkaProducerFactoryImpl<T> : KafkaProducerFactory<T> {
     }
 
     internal class KProducerImpl<T>(
-        private val kafkaProducer: KafkaProducer<String, Event<T>>,
+        private val kafkaProducer: KafkaProducer<String, T>,
         private val topic: String,
     ) : KProducer<T> {
         override fun send(value: T, key: String?, callback: (data: RecordMetadata?) -> Unit) {
-            val event = Event(data = value)
-            val record = ProducerRecord<String, Event<T>>(topic, key, event)
+            val record = ProducerRecord<String, T>(topic, key, value)
             kafkaProducer.send(record, callbackFunction(callback)).get()
         }
 

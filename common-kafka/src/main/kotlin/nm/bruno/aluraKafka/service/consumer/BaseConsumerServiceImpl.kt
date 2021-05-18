@@ -1,6 +1,5 @@
 package nm.bruno.aluraKafka.service.consumer
 
-import nm.bruno.aluraKafka.domain.Event
 import nm.bruno.aluraKafka.factory.consumer.KafkaConsumerFactory.KConsumer
 import org.apache.kafka.clients.consumer.ConsumerRecords
 
@@ -8,7 +7,7 @@ open class BaseConsumerServiceImpl<T>(private val consumer: KConsumer<T>): BaseC
 
     private var switch = false
 
-    override fun start(callback: (ConsumerRecords<String, Event<T>>) -> Unit) {
+    override fun start(callback: (ConsumerRecords<String, T>) -> Unit) {
         switch = true
         while (switch) {
             pool(callback)
@@ -19,7 +18,7 @@ open class BaseConsumerServiceImpl<T>(private val consumer: KConsumer<T>): BaseC
         switch = false
     }
 
-    private fun pool(callback: (ConsumerRecords<String, Event<T>>) -> Unit) {
+    private fun pool(callback: (ConsumerRecords<String, T>) -> Unit) {
         consumer.poll(callback = callback)
     }
 }

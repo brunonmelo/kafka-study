@@ -3,14 +3,18 @@ package nm.bruno.aluraKafka.app
 import nm.bruno.aluraKafka.domain.Email
 import nm.bruno.aluraKafka.domain.Order
 import nm.bruno.aluraKafka.factory.producer.KafkaProducerFactoryImpl
-import nm.bruno.aluraKafka.service.producer.OrderService
-import nm.bruno.aluraKafka.service.producer.OrderServiceImpl
+import nm.bruno.aluraKafka.service.producer.order.OrderService
+import nm.bruno.aluraKafka.service.producer.order.OrderServiceImpl
 import nm.bruno.aluraKafka.service.producer.SendEmailService
 import nm.bruno.aluraKafka.service.producer.SendEmailServiceImpl
 import nm.bruno.aluraKafka.utils.defaultSendMessageCallback
 import java.util.*
 
-private val orderService: OrderService by lazy { OrderServiceImpl(KafkaProducerFactoryImpl()) }
+private val orderService: OrderService by lazy {
+    OrderServiceImpl(
+        KafkaProducerFactoryImpl()
+    )
+}
 private val sendEmailService: SendEmailService by lazy { SendEmailServiceImpl(KafkaProducerFactoryImpl()) }
 
 fun main() {

@@ -4,6 +4,9 @@
 # Idea files
 /.idea/
 
+# Database File
+/users_database.db
+
 # Java Target
 /target/
 /common-kafka/target
@@ -11,3 +14,4 @@
 /service-fraud-detector/target
 /service-log/target
 /service-new-order/target
+/service-users/target
